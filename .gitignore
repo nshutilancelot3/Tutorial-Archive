@@ -1,0 +1,7 @@
+# API key – never commit these
+config.js
+.env
+node_modules/
+.DS_Store
+*.log
+
