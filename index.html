@@ -50,6 +50,77 @@
     </div>
   </div>
 
+
+  <!-- ── MAIN APP ── -->
+  <div id="appScreen" class="d-none">
+
+    <!-- Header -->
+    <header class="app-header">
+      <div class="container-fluid px-4 d-flex align-items-center justify-content-between">
+
+        <div class="d-flex align-items-center gap-3">
+          <div class="header-logo">
+            <svg viewBox="0 0 48 48" width="20" height="20" fill="none">
+              <polygon points="24,4 46,14 24,24 2,14" fill="white" opacity="0.95"/>
+              <line x1="40" y1="16" x2="40" y2="28" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="40" cy="29.5" r="2.2" fill="white" opacity="0.85"/>
+              <polygon points="19,30 19,42 33,36" fill="white"/>
+            </svg>
+          </div>
+          <div>
+            <div class="brand">Tuto Archive</div>
+            <div class="tagline" id="headerTagline">ALU</div>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-3">
+          <div class="header-search-wrap">
+            <input id="globalSearch" type="text" class="header-search" placeholder="Search any topic…" autocomplete="off" />
+            <button class="header-search-btn" onclick="doGlobalSearch()"><i class="bi bi-search"></i></button>
+          </div>
+          <button class="switch-btn" onclick="switchProgram()" title="Switch program">
+            <i class="bi bi-arrow-left-right me-1"></i>Switch
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Tab bar -->
+    <div class="tab-bar">
+      <div class="container-fluid px-4 d-flex gap-1">
+        <button class="tab-btn active" id="tabCourses" onclick="switchTab(this,'courses')">
+          <i class="bi bi-book-fill me-1"></i>My Courses
+        </button>
+        <button class="tab-btn" id="tabSearch" onclick="switchTab(this,'search')">
+          <i class="bi bi-search me-1"></i>Search
+        </button>
+        <button class="tab-btn" id="tabSaved" onclick="switchTab(this,'saved')">
+          <i class="bi bi-bookmark-fill me-1"></i>Saved
+          <span class="saved-badge" id="savedCount">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container-fluid px-4 py-4">
+
+      <!-- COURSES TAB -->
+      <div id="tabCoursesContent">
+        <h2 class="page-title mb-1">Your Enrolled Courses</h2>
+        <p class="page-sub mb-4" id="enrolledLabel"></p>
+        <div id="courseGrid" class="course-grid"></div>
+      </div>
+
+      <!-- SEARCH TAB (placeholder) -->
+      <div id="tabSearchContent" class="d-none"></div>
+
+      <!-- SAVED TAB (placeholder) -->
+      <div id="tabSavedContent" class="d-none"></div>
+
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="courses.js"></script>
   <script src="app.js"></script>
