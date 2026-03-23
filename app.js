@@ -58,3 +58,37 @@ document.addEventListener('DOMContentLoaded', function () {
     if (e.key === 'Enter') doTopicSearch();
   });
 });
+
+/* ═══════════════════════════════════════════════════════════════
+   PROGRAM SELECTOR
+═══════════════════════════════════════════════════════════════ */
+function selectProgram(card) {
+  document.querySelectorAll('.program-card').forEach(function (c) {
+    c.classList.remove('selected');
+  });
+  card.classList.add('selected');
+  selectedProgram = card.dataset.program;
+}
+
+function selectYear(btn, year) {
+  document.querySelectorAll('.year-pill').forEach(function (b) {
+    b.classList.remove('selected');
+  });
+  btn.classList.add('selected');
+  selectedYear = year;
+}
+
+function enterApp() {
+  selectedProgram = 'SE'; // only one program
+  if (!selectedYear) { showToast('Please select your year.', 'warn'); return; }
+
+  currentProgram = selectedProgram;
+  currentYear    = selectedYear;
+
+  // Persist choice so user doesn't have to pick again on refresh
+  localStorage.setItem('ta_program', currentProgram);
+  localStorage.setItem('ta_year',    currentYear);
+
+  savedVideos = loadSaved(currentProgram);
+  showApp();
+}
