@@ -244,3 +244,19 @@ function skeleton(n) {
   }
   return html;
 }
+
+async function fetchVideos(course) {
+  var vEl = document.getElementById('videos_' + course.id);
+  var mEl = document.getElementById('meta_' + course.id);
+
+  try {
+    var videos = await apiSearch(course.topics[0], 6);
+    if (mEl) mEl.textContent = videos.length + ' videos';
+    vEl.innerHTML = videos.length
+      ? videos.map(videoRowHTML).join('')
+      : emptyState('bi-camera-video-off', 'No videos found.');
+  } catch (err) {
+    vEl.innerHTML = errMsg(err.message);
+    if (mEl) mEl.textContent = 'Failed to load';
+  }
+}
