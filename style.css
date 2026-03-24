@@ -31,3 +31,120 @@ h1, h2, h3 { font-family: 'Urbanist', sans-serif; }
   to   { opacity: 1; transform: translateY(0); }
 }
 .animate-in { animation: fadeUp .32s ease forwards; }
+
+
+.selector-screen {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 55%, #4338ca 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.selector-card {
+  background: #fff;
+  border-radius: 22px;
+  padding: 2.4rem 2.2rem;
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 28px 70px rgba(0,0,0,.32);
+  animation: fadeUp .4s ease;
+}
+
+.selector-logo {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, var(--accent), var(--primary-lt));
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.1rem;
+}
+
+.selector-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  color: var(--primary);
+  margin-bottom: .3rem;
+}
+
+.selector-sub {
+  text-align: center;
+  color: var(--muted);
+  font-size: .83rem;
+  margin-bottom: 1.8rem;
+  line-height: 1.65;
+}
+.selector-sub strong { color: var(--primary); }
+
+/* ── Year pills ── */
+.selector-year { margin-bottom: 1.4rem; }
+
+.year-label {
+  display: block;
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: .55rem;
+}
+
+.year-pills {
+  display: flex;
+  gap: .5rem;
+}
+
+.year-pill {
+  flex: 1;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  padding: .55rem;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 700;
+  font-size: .82rem;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .16s;
+}
+.year-pill:hover { border-color: var(--accent); color: var(--accent); }
+.year-pill.selected {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ── Enter button ── */
+.btn-enter {
+  width: 100%;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: .88rem;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background .22s, transform .14s, box-shadow .22s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.btn-enter:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99,102,241,.4);
+}
+.btn-enter:active { background: #b91c1c; transform: translateY(0); }
+
+.selector-footer {
+  text-align: center;
+  font-size: .7rem;
+  color: var(--muted);
+  margin: 0;
+}
