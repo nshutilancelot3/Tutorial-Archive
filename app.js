@@ -132,3 +132,31 @@ function switchProgram() {
   // Reset to courses tab for next time
   switchTabSilent('courses');
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   TABS
+═══════════════════════════════════════════════════════════════ */
+function switchTab(btn, tab) {
+  activeTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('tabCoursesContent').classList.toggle('d-none', tab !== 'courses');
+  document.getElementById('tabSearchContent').classList.toggle('d-none',  tab !== 'search');
+  document.getElementById('tabSavedContent').classList.toggle('d-none',   tab !== 'saved');
+  if (tab === 'saved') renderSavedVideos();
+}
+
+function switchTabSilent(tab) {
+  if (tab !== 'search') {
+    lastSearchQuery = ''; lastSearchResults = [];
+    document.getElementById('sortFilterBar').style.display = 'none';
+  }
+  activeTab = tab;
+  ['courses','search','saved'].forEach(function (t) {
+    document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1) + 'Content')
+      .classList.toggle('d-none', t !== tab);
+  });
+  document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+  var btn = document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1));
+  if (btn) btn.classList.add('active');
+}
