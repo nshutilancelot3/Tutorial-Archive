@@ -160,3 +160,87 @@ function switchTabSilent(tab) {
   var btn = document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1));
   if (btn) btn.classList.add('active');
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   LOAD COURSES + FETCH VIDEOS
+═══════════════════════════════════════════════════════════════ */
+function loadCourses() {
+  var courses = getCourses(currentProgram, currentYear);
+  var grid    = document.getElementById('courseGrid');
+
+  if (!courses.length) {
+    grid.innerHTML = emptyState('bi-journal-x', 'No courses found for this year and program.');
+    return;
+  }
+
+  // Store courses on window so toggleCourseVideos can access them
+  window._courses = courses;
+
+  grid.innerHTML = courses.map(function (c, i) {
+    return '<div class="course-card animate-in" style="animation-delay:' + (i * 0.05) + 's" id="card_' + c.id + '">' +
+      '<div class="course-header" onclick="toggleCourseVideos(\'' + c.id + '\')" style="cursor:pointer;user-select:none">' +
+        '<div class="course-icon" style="background:' + c.color + '"></div>' +
+        '<div style="flex:1">' +
+          '<div class="course-name">' + c.name + '</div>' +
+          '<div class="course-meta" id="meta_' + c.id + '">Click to load videos</div>' +
+        '</div>' +
+        '<i class="bi bi-chevron-down" id="chev_' + c.id + '" style="color:var(--muted);font-size:.85rem;transition:transform .25s"></i>' +
+      '</div>' +
+      '<div class="course-videos" id="videos_' + c.id + '" style="display:none;padding-top:.4rem"></div>' +
+    '</div>';
+  }).join('');
+}
+
+/* Accordion — only one card open at a time, fetch only on first open */
+var _loadedCourses = {};
+var _openCourse    = null;
+
+function toggleCourseVideos(courseId) {
+  var vEl    = document.getElementById('videos_' + courseId);
+  var chev   = document.getElementById('chev_'   + courseId);
+  var mEl    = document.getElementById('meta_'   + courseId);
+  var isOpen = vEl.style.display === 'block';
+
+  // Close ALL course cards first
+  document.querySelectorAll('.course-videos').forEach(function (el) {
+    el.style.display = 'none';
+  });
+  document.querySelectorAll('[id^="chev_"]').forEach(function (el) {
+    el.style.transform = 'rotate(0deg)';
+  });
+
+  if (isOpen) {
+    // Was open — leave it closed
+    _openCourse = null;
+  } else {
+    // Open this one
+    vEl.style.display = 'block';
+    if (chev) chev.style.transform = 'rotate(180deg)';
+    _openCourse = courseId;
+
+    // Only call API once per course
+    if (!_loadedCourses[courseId]) {
+      var course = (window._courses || []).find(function (c) { return c.id === courseId; });
+      if (course) {
+        _loadedCourses[courseId] = true;
+        vEl.innerHTML = skeleton(3);
+        if (mEl) mEl.textContent = 'Loading...';
+        fetchVideos(course);
+      }
+    }
+  }
+}
+
+function skeleton(n) {
+  var html = '';
+  for (var i = 0; i < n; i++) {
+    html += '<div class="video-row" style="cursor:default">' +
+      '<div class="sk-thumb"></div>' +
+      '<div class="flex-grow-1">' +
+        '<div class="sk-line" style="width:88%"></div>' +
+        '<div class="sk-line" style="width:60%"></div>' +
+      '</div>' +
+    '</div>';
+  }
+  return html;
+}
