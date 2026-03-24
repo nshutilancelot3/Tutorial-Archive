@@ -92,3 +92,43 @@ function enterApp() {
   savedVideos = loadSaved(currentProgram);
   showApp();
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   SHOW APP
+═══════════════════════════════════════════════════════════════ */
+function showApp() {
+  document.getElementById('selectorScreen').classList.add('d-none');
+  document.getElementById('appScreen').classList.remove('d-none');
+
+  var prog = ALU_PROGRAMS[currentProgram];
+  document.getElementById('headerTagline').textContent = 'ALU · ' + prog.label + ' · Year ' + currentYear;
+  document.getElementById('enrolledLabel').textContent =
+    prog.icon + ' ' + prog.label + ' · Year ' + currentYear + ' · African Leadership University';
+
+  renderQuickChips();
+  loadCourses();
+  renderSavedVideos();
+  updateSavedCount();
+}
+
+/* ─── Switch program — go back to selector ───────────────── */
+function switchProgram() {
+  if (!confirm('Switch your program? Your saved videos will stay.')) return;
+
+  localStorage.removeItem('ta_program');
+  localStorage.removeItem('ta_year');
+  currentProgram = null;
+  currentYear    = null;
+
+  // Reset selector UI
+  document.querySelectorAll('.program-card').forEach(function (c) { c.classList.remove('selected'); });
+  document.querySelectorAll('.year-pill').forEach(function (b) { b.classList.remove('selected'); });
+  selectedProgram = null;
+  selectedYear    = null;
+
+  document.getElementById('appScreen').classList.add('d-none');
+  document.getElementById('selectorScreen').classList.remove('d-none');
+
+  // Reset to courses tab for next time
+  switchTabSilent('courses');
+}
