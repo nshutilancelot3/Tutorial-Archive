@@ -260,3 +260,28 @@ async function fetchVideos(course) {
     if (mEl) mEl.textContent = 'Failed to load';
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   YOUTUBE SEARCH — proxied through /api/search on the server
+   API key stays in .env on the server, never reaches the browser
+═══════════════════════════════════════════════════════════════ */
+async function apiSearch(query, max, order) {
+  max   = max   || 9;
+  order = order || 'relevance';
+  var controller = new AbortController();
+  var timer = setTimeout(function () { controller.abort(); }, 12000);
+  try {
+    var res  = await fetch(
+      '/api/search?q=' + encodeURIComponent(query) + '&max=' + max + '&order=' + order,
+      { signal: controller.signal }
+    );
+    clearTimeout(timer);
+    var data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Search failed.');
+    return data.videos || [];
+  } catch (err) {
+    clearTimeout(timer);
+    if (err.name === 'AbortError') throw new Error('Request timed out. Please try again.');
+    throw err;
+  }
+}
