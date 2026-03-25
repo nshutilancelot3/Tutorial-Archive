@@ -297,3 +297,34 @@ function doGlobalSearch() {
   doTopicSearch();
   document.getElementById('globalSearch').value = '';
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   TOPIC SEARCH (Search tab)
+═══════════════════════════════════════════════════════════════ */
+async function doTopicSearch() {
+  var q   = document.getElementById('searchTopicInput').value.trim();
+  var res = document.getElementById('searchResults');
+
+  if (!q) { showToast('Enter a topic to search.', 'warn'); return; }
+  if (!navigator.onLine) { showToast('No internet connection.', 'warn'); return; }
+
+  searchSortOrder  = document.getElementById('sortOrder').value;
+  searchYearFilter = 'all';
+
+  res.innerHTML =
+    '<div class="d-flex align-items-center gap-2 py-3 text-muted" style="font-size:.84rem">' +
+    '<div class="spinner-border spinner-border-sm" style="color:var(--accent)"></div>' +
+    'Searching for <strong>' + esc(q) + '</strong>…</div>';
+
+  document.getElementById('sortFilterBar').style.display = 'none';
+
+  try {
+    var videos = await apiSearch(q, 12, searchSortOrder);
+    lastSearchQuery   = q;
+    lastSearchResults = videos;
+    renderSearchResults();
+  } catch (err) {
+    res.innerHTML = errMsg(err.message);
+    document.getElementById('sortFilterBar').style.display = 'none';
+  }
+}
