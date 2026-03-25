@@ -328,3 +328,16 @@ async function doTopicSearch() {
     document.getElementById('sortFilterBar').style.display = 'none';
   }
 }
+
+function onSortChange() {
+  searchSortOrder = document.getElementById('sortOrder').value;
+  if (!lastSearchQuery) return;
+  // Re-fetch with new sort order
+  document.getElementById('searchTopicInput').value = lastSearchQuery;
+  doTopicSearch();
+}
+
+function setYearFilter(year) {
+  searchYearFilter = year;
+  renderSearchResults();
+}
