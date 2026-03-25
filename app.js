@@ -285,3 +285,15 @@ async function apiSearch(query, max, order) {
     throw err;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   GLOBAL SEARCH (header bar)
+═══════════════════════════════════════════════════════════════ */
+function doGlobalSearch() {
+  var q = document.getElementById('globalSearch').value.trim();
+  if (!q) return;
+  document.getElementById('searchTopicInput').value = q;
+  switchTab(document.getElementById('tabSearch'), 'search');
+  doTopicSearch();
+  document.getElementById('globalSearch').value = '';
+}
