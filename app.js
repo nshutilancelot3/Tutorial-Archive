@@ -50,6 +50,17 @@ document.addEventListener('DOMContentLoaded', function () {
     showApp();
   }
 
+  // Offline / online detection
+  function updateOfflineBanner() {
+    document.getElementById('offlineBanner').classList.toggle('show', !navigator.onLine);
+    if (!navigator.onLine) showToast('No internet connection.', 'warn');
+  }
+  window.addEventListener('offline', updateOfflineBanner);
+  window.addEventListener('online',  function () {
+    document.getElementById('offlineBanner').classList.remove('show');
+    showToast('Back online!');
+  });
+
   // Enter key on search inputs
   document.getElementById('globalSearch').addEventListener('keydown', function (e) {
     if (e.key === 'Enter') doGlobalSearch();
