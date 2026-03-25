@@ -341,3 +341,45 @@ function setYearFilter(year) {
   searchYearFilter = year;
   renderSearchResults();
 }
+
+function renderSearchResults() {
+  var res    = document.getElementById('searchResults');
+  var bar    = document.getElementById('sortFilterBar');
+  var videos = lastSearchResults;
+
+  if (!videos.length) {
+    res.innerHTML = emptyState('bi-search', 'No results for "' + esc(lastSearchQuery) + '".');
+    bar.style.display = 'none';
+    return;
+  }
+
+  // Build year filter chips from unique years in results
+  var years = videos.map(function (v) { return v.year; })
+    .filter(function (y, i, a) { return y && a.indexOf(y) === i; })
+    .sort(function (a, b) { return b - a; });
+
+  var chipsHTML = '<span style="font-size:.72rem;font-weight:700;color:var(--muted)">YEAR</span>' +
+    '<button class="year-chip' + (searchYearFilter === 'all' ? ' active' : '') + '" onclick="setYearFilter(\'all\')">All</button>';
+  years.forEach(function (y) {
+    chipsHTML += '<button class="year-chip' + (searchYearFilter === y ? ' active' : '') + '" onclick="setYearFilter(\'' + y + '\')">' + y + '</button>';
+  });
+  document.getElementById('yearFilterChips').innerHTML = chipsHTML;
+  bar.style.removeProperty('display');
+
+  // Apply year filter
+  var filtered = searchYearFilter === 'all'
+    ? videos
+    : videos.filter(function (v) { return v.year === searchYearFilter; });
+
+  if (!filtered.length) {
+    res.innerHTML = emptyState('bi-filter', 'No results from ' + searchYearFilter + '. Try "All".');
+    return;
+  }
+
+  res.innerHTML =
+    '<p class="mb-3" style="font-size:.8rem;color:var(--muted)">' +
+      filtered.length + ' result' + (filtered.length !== 1 ? 's' : '') +
+      ' for <strong>' + esc(lastSearchQuery) + '</strong>' +
+    '</p>' +
+    '<div class="video-grid">' + filtered.map(videoCardHTML).join('') + '</div>';
+}
