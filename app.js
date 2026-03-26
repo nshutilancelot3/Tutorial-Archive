@@ -394,3 +394,39 @@ function renderSearchResults() {
     '</p>' +
     '<div class="video-grid">' + filtered.map(videoCardHTML).join('') + '</div>';
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   SAVE / UNSAVE — stored in localStorage per program
+═══════════════════════════════════════════════════════════════ */
+function loadSaved(program) {
+  try {
+    return JSON.parse(localStorage.getItem('ta_saved_' + program) || '[]');
+  } catch (e) {
+    return [];
+  }
+}
+
+function persistSaved() {
+  localStorage.setItem('ta_saved_' + currentProgram, JSON.stringify(savedVideos));
+}
+
+function isSaved(id) {
+  return savedVideos.some(function (v) { return v.id === id; });
+}
+
+function toggleSave(video) {
+  var idx = savedVideos.findIndex(function (v) { return v.id === video.id; });
+
+  if (idx === -1) {
+    savedVideos.push(video);
+    showToast('Saved: ' + video.title.slice(0, 45) + '…');
+  } else {
+    savedVideos.splice(idx, 1);
+    showToast('Removed from saved.');
+  }
+
+  persistSaved();
+  updateSavedCount();
+  refreshSaveBtns(video.id);
+  if (activeTab === 'saved') renderSavedVideos();
+}
