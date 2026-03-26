@@ -475,3 +475,18 @@ function clearAllSaved() {
   updateSavedCount();
   renderSavedVideos();
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   QUICK CHIPS
+═══════════════════════════════════════════════════════════════ */
+function renderQuickChips() {
+  var topics = QUICK[currentProgram] || QUICK.SE;
+  document.getElementById('quickChips').innerHTML = topics.map(function (t) {
+    return '<button class="chip" onclick="quickSearch(\'' + esc(t) + '\')">' + t + '</button>';
+  }).join('');
+}
+
+function quickSearch(topic) {
+  document.getElementById('searchTopicInput').value = topic;
+  doTopicSearch();
+}
