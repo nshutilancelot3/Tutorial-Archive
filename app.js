@@ -430,3 +430,48 @@ function toggleSave(video) {
   refreshSaveBtns(video.id);
   if (activeTab === 'saved') renderSavedVideos();
 }
+
+function refreshSaveBtns(id) {
+  var saved = isSaved(id);
+
+  document.querySelectorAll('[data-vid="' + id + '"]').forEach(function (btn) {
+    btn.classList.toggle('saved', saved);
+    btn.title     = saved ? 'Remove' : 'Save';
+    btn.innerHTML = '<i class="bi ' + (saved ? 'bi-bookmark-check-fill' : 'bi-bookmark') + '"></i>';
+  });
+
+  document.querySelectorAll('[data-card-vid="' + id + '"]').forEach(function (btn) {
+    btn.classList.toggle('saved', saved);
+    btn.textContent = saved ? 'Saved' : 'Save';
+  });
+}
+
+function updateSavedCount() {
+  document.getElementById('savedCount').textContent = savedVideos.length;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RENDER SAVED VIDEOS
+═══════════════════════════════════════════════════════════════ */
+function renderSavedVideos() {
+  var el  = document.getElementById('savedVideos');
+  var btn = document.getElementById('clearSavedBtn');
+
+  if (!savedVideos.length) {
+    btn.classList.add('d-none');
+    el.innerHTML = emptyState('bi-bookmark',
+      'No saved videos yet.<br>Bookmark videos from your courses or search.');
+    return;
+  }
+
+  btn.classList.remove('d-none');
+  el.innerHTML = '<div class="video-grid">' + savedVideos.map(videoCardHTML).join('') + '</div>';
+}
+
+function clearAllSaved() {
+  if (!confirm('Remove all saved videos?')) return;
+  savedVideos = [];
+  persistSaved();
+  updateSavedCount();
+  renderSavedVideos();
+}
