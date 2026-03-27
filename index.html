@@ -112,12 +112,79 @@
         <div id="courseGrid" class="course-grid"></div>
       </div>
 
-      <!-- SEARCH TAB (placeholder) -->
-      <div id="tabSearchContent" class="d-none"></div>
+      <!-- SEARCH TAB -->
+      <div id="tabSearchContent" class="d-none">
+        <h2 class="page-title mb-1">Search Any Topic</h2>
+        <p class="page-sub mb-4">Find YouTube tutorials beyond your course list</p>
+        <div class="d-flex gap-2 mb-4">
+          <input id="searchTopicInput" type="text" class="search-input"
+            placeholder="e.g. Docker, React hooks, negotiation skills…" autocomplete="off" />
+          <button class="search-btn" onclick="doTopicSearch()">
+            <i class="bi bi-search me-1"></i>Search
+          </button>
+        </div>
+        <div class="mb-4">
+          <p class="mb-2" style="font-size:.75rem;font-weight:700;color:var(--muted)">QUICK SEARCHES</p>
+          <div class="d-flex flex-wrap gap-2" id="quickChips"></div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3" id="sortFilterBar" style="display:none!important">
+          <div class="d-flex align-items-center gap-2">
+            <span style="font-size:.75rem;font-weight:700;color:var(--muted)">SORT BY</span>
+            <select id="sortOrder" class="sort-select" onchange="onSortChange()">
+              <option value="relevance">Most Relevant</option>
+              <option value="date">Newest First</option>
+            </select>
+          </div>
+          <div class="d-flex align-items-center gap-2 flex-wrap" id="yearFilterChips"></div>
+        </div>
+        <div id="searchResults"></div>
+      </div>
 
-      <!-- SAVED TAB (placeholder) -->
-      <div id="tabSavedContent" class="d-none"></div>
+      <!-- SAVED TAB -->
+      <div id="tabSavedContent" class="d-none">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+          <div>
+            <h2 class="page-title mb-0">Saved Videos</h2>
+            <p class="page-sub mb-0">Your bookmarked study resources</p>
+          </div>
+          <button class="btn btn-sm btn-outline-danger d-none" id="clearSavedBtn" onclick="clearAllSaved()">
+            <i class="bi bi-trash3 me-1"></i>Clear All
+          </button>
+        </div>
+        <div id="savedVideos"></div>
+      </div>
 
+    </div>
+  </div>
+
+
+  <!-- VIDEO MODAL -->
+  <div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content bg-dark">
+        <div class="modal-header border-0 pb-0">
+          <h6 class="modal-video-title text-white" id="videoModalTitle"></h6>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="ratio ratio-16x9">
+            <iframe id="videoPlayer" src="" title="YouTube video" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+          <div class="d-flex justify-content-between align-items-center px-3 py-2">
+            <div class="text-white-50" style="font-size:.78rem" id="videoModalMeta"></div>
+            <div class="d-flex gap-2">
+              <button class="modal-save-btn" id="modalSaveBtn" onclick="toggleSaveFromModal()">
+                <i class="bi bi-bookmark me-1"></i>Save
+              </button>
+              <a id="modalYtLink" href="#" target="_blank" class="modal-yt-btn">
+                <i class="bi bi-youtube me-1"></i>YouTube
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
