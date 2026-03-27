@@ -568,3 +568,46 @@ function videoRowHTML(v) {
     '</button>' +
   '</div>';
 }
+
+function videoCardHTML(v) {
+  var s   = isSaved(v.id);
+  var vid = JSON.stringify({ id: v.id, title: v.title, channel: v.channel, year: v.year, thumb: v.thumb })
+              .replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+  var open = "openVideo('" + v.id + "','" + tp(v.title) + "','" + tp(v.channel) + "','" + v.year + "')";
+
+  return '<div class="video-card animate-in" onclick="' + open + '">' +
+    '<div class="card-thumb-wrap">' +
+      '<img class="card-thumb" src="' + v.thumb + '" alt="" loading="lazy"/>' +
+      '<div class="card-play"><i class="bi bi-play-circle-fill"></i></div>' +
+    '</div>' +
+    '<div class="card-body-inner">' +
+      '<div class="ct">' + esc(v.title) + '</div>' +
+      '<div class="cm">' +
+        '<span><span class="yt-badge">YT</span> ' + esc(v.channel) + ' &middot; ' + v.year + '</span>' +
+        '<button class="card-save-btn ' + (s ? 'saved' : '') + '" data-card-vid="' + v.id + '" ' +
+          'onclick="event.stopPropagation();toggleSave(JSON.parse(this.dataset.video))" data-video="' + vid + '">' +
+          (s ? 'Saved' : 'Save') +
+        '</button>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function errMsg(msg) {
+  return '<div class="err-box"><i class="bi bi-exclamation-triangle-fill"></i><span>' + esc(msg) + '</span></div>';
+}
+
+function emptyState(icon, msg) {
+  return '<div class="empty"><i class="bi ' + icon + '"></i><p>' + msg + '</p></div>';
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════════════════════════════ */
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function tp(s) {
+  return String(s || '').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,' ');
+}
