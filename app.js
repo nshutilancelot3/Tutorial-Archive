@@ -535,3 +535,10 @@ function updateModalSaveBtn() {
     : '<i class="bi bi-bookmark me-1"></i>Save';
   btn.classList.toggle('saved', saved);
 }
+
+function showToast(msg, type) {
+  var el = document.getElementById('liveToast');
+  document.getElementById('toastMsg').textContent = msg;
+  el.style.background = type === 'warn' ? '#d97706' : '#1e1b4b';
+  new bootstrap.Toast(el, { delay: 3000 }).show();
+}
