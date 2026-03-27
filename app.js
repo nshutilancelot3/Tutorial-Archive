@@ -542,3 +542,29 @@ function showToast(msg, type) {
   el.style.background = type === 'warn' ? '#d97706' : '#1e1b4b';
   new bootstrap.Toast(el, { delay: 3000 }).show();
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   HTML TEMPLATES
+═══════════════════════════════════════════════════════════════ */
+function videoRowHTML(v) {
+  var s   = isSaved(v.id);
+  var vid = JSON.stringify({ id: v.id, title: v.title, channel: v.channel, year: v.year, thumb: v.thumb })
+              .replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+  var open = "openVideo('" + v.id + "','" + tp(v.title) + "','" + tp(v.channel) + "','" + v.year + "')";
+
+  return '<div class="video-row">' +
+    '<div class="thumb-wrap" onclick="' + open + '">' +
+      '<img class="thumb" src="' + v.thumb + '" alt="" loading="lazy"/>' +
+      '<div class="play-icon"><i class="bi bi-play-circle-fill"></i></div>' +
+    '</div>' +
+    '<div class="flex-grow-1" onclick="' + open + '">' +
+      '<div class="vt">' + esc(v.title) + '</div>' +
+      '<div class="vm"><span class="yt-badge">YT</span> ' + esc(v.channel) + ' &middot; ' + v.year + '</div>' +
+    '</div>' +
+    '<button class="save-btn ' + (s ? 'saved' : '') + '" data-vid="' + v.id + '" ' +
+      'onclick="toggleSave(JSON.parse(this.dataset.video))" data-video="' + vid + '" ' +
+      'title="' + (s ? 'Remove' : 'Save') + '">' +
+      '<i class="bi ' + (s ? 'bi-bookmark-check-fill' : 'bi-bookmark') + '"></i>' +
+    '</button>' +
+  '</div>';
+}
