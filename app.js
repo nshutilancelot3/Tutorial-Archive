@@ -490,3 +490,48 @@ function quickSearch(topic) {
   document.getElementById('searchTopicInput').value = topic;
   doTopicSearch();
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   OPEN VIDEO — plays directly inside the app
+   Works because the app is served over HTTP (not file://)
+═══════════════════════════════════════════════════════════════ */
+function openVideo(videoId, title, channel, year) {
+  currentModalVid = { id: videoId, title: title, channel: channel, year: year,
+    thumb: 'https://img.youtube.com/vi/' + videoId + '/mqdefault.jpg' };
+
+  if (!videoModalInst) {
+    var modalEl = document.getElementById('videoModal');
+    videoModalInst = new bootstrap.Modal(modalEl);
+    modalEl.addEventListener('hidden.bs.modal', function () {
+      document.getElementById('videoPlayer').src = '';
+      currentModalVid = null;
+    });
+  }
+
+  document.getElementById('videoPlayer').src =
+    'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
+  document.getElementById('videoModalTitle').textContent = title || '';
+  document.getElementById('videoModalMeta').innerHTML =
+    '<span class="yt-badge me-1">YT</span>' + esc(channel || '') + ' · ' + (year || '');
+  document.getElementById('modalYtLink').href =
+    'https://www.youtube.com/watch?v=' + videoId;
+
+  updateModalSaveBtn();
+  videoModalInst.show();
+}
+
+function toggleSaveFromModal() {
+  if (!currentModalVid) return;
+  toggleSave(currentModalVid);
+  updateModalSaveBtn();
+}
+
+function updateModalSaveBtn() {
+  if (!currentModalVid) return;
+  var saved = isSaved(currentModalVid.id);
+  var btn   = document.getElementById('modalSaveBtn');
+  btn.innerHTML = saved
+    ? '<i class="bi bi-bookmark-check-fill me-1"></i>Saved'
+    : '<i class="bi bi-bookmark me-1"></i>Save';
+  btn.classList.toggle('saved', saved);
+}
