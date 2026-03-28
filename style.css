@@ -1,4 +1,3 @@
-
 :root {
   --primary:    #1e1b4b;
   --primary-lt: #312e81;
@@ -81,7 +80,7 @@ h1, h2, h3 { font-family: 'Urbanist', sans-serif; }
 }
 .selector-sub strong { color: var(--primary); }
 
-/* ── Year pills ── */
+/* year pills */
 .selector-year { margin-bottom: 1.4rem; }
 
 .year-label {
@@ -117,7 +116,7 @@ h1, h2, h3 { font-family: 'Urbanist', sans-serif; }
   color: #fff;
 }
 
-/* ── Enter button ── */
+/* enter button */
 .btn-enter {
   width: 100%;
   background: var(--primary);
@@ -149,9 +148,7 @@ h1, h2, h3 { font-family: 'Urbanist', sans-serif; }
   margin: 0;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   HEADER
-═══════════════════════════════════════════════════════════════ */
+/* header */
 .app-header {
   background: var(--primary);
   color: #fff;
@@ -213,9 +210,7 @@ h1, h2, h3 { font-family: 'Urbanist', sans-serif; }
 }
 .switch-btn:hover { background: var(--red); border-color: var(--red); }
 
-/* ═══════════════════════════════════════
-   TAB BAR
-═══════════════════════════════════════ */
+/* tab bar */
 .tab-bar {
   background: var(--primary-lt);
   border-bottom: 1px solid rgba(255,255,255,.1);
@@ -254,15 +249,11 @@ h1, h2, h3 { font-family: 'Urbanist', sans-serif; }
   margin-left: .2rem;
 }
 
-/* ═══════════════════════════════════════
-   PAGE TITLES
-═══════════════════════════════════════ */
+/* page titles */
 .page-title { font-family: 'Urbanist', sans-serif; font-size: 1.38rem; font-weight: 700; color: var(--primary); }
 .page-sub   { font-size: .82rem; color: var(--muted); }
 
-/* ═══════════════════════════════════════
-   COURSE GRID
-═══════════════════════════════════════ */
+/* course grid */
 .course-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
@@ -303,7 +294,7 @@ h1, h2, h3 { font-family: 'Urbanist', sans-serif; }
 .course-meta { font-size: .68rem; color: var(--muted); font-weight: 600; }
 .course-videos { padding: 0 1.2rem 1.2rem; }
 
-/* ── Video row inside course card ── */
+/* video row */
 .video-row {
   display: flex; gap: .6rem;
   padding: .55rem .45rem; margin: 0 -.45rem;
@@ -341,7 +332,7 @@ h1, h2, h3 { font-family: 'Urbanist', sans-serif; }
 .save-btn:hover { color: var(--accent); background: #ede9fe; }
 .save-btn.saved { color: var(--accent); }
 
-/* ── Skeleton loaders ── */
+/* skeleton loaders */
 .sk-thumb {
   width: 92px; height: 52px; flex-shrink: 0; border-radius: 6px;
   background: linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);
@@ -376,7 +367,7 @@ h1, h2, h3 { font-family: 'Urbanist', sans-serif; }
 }
 .search-btn:hover { background: var(--red); }
 
-/* Quick chips */
+/* quick chips */
 .chip {
   border: 1.5px solid var(--accent); color: var(--accent); background: #fff;
   border-radius: 99px; padding: .28rem .88rem; font-size: .76rem; font-weight: 600;
@@ -503,5 +494,3 @@ h1, h2, h3 { font-family: 'Urbanist', sans-serif; }
   .video-grid    { grid-template-columns: 1fr; }
   .header-search { display: none; }
 }
-
-
