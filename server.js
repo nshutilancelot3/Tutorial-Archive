@@ -1,11 +1,3 @@
-/* ═══════════════════════════════════════════════════════════════
-   TUTO ARCHIVE — server.js
-   Minimal Node.js/Express server
-   - Reads YOUTUBE_API_KEY from .env (never exposed to browser)
-   - Proxies YouTube search requests through /api/search
-   - Serves all frontend files from the project folder
-   No login, no database — kept simple by design.
-═══════════════════════════════════════════════════════════════ */
 
 require('dotenv').config();
 
@@ -16,10 +8,10 @@ const path    = require('path');
 const app  = express();
 const PORT = process.env.PORT || 3000;
 
-/* ─── SERVE FRONTEND ─────────────────────────────────────── */
+/* SERVE FRONTEND */
 app.use(express.static(path.join(__dirname)));
 
-/* ─── YOUTUBE SEARCH PROXY ───────────────────────────────── */
+/* YOUTUBE SEARCH PROXY */
 // Keeps the API key on the server — browser only calls /api/search
 app.get('/api/search', function (req, res) {
   var query      = req.query.q;
@@ -97,12 +89,12 @@ app.get('/api/search', function (req, res) {
   });
 });
 
-/* ─── CATCH-ALL — serve index.html ──────────────────────── */
+/* CATCH-ALL — serve index.html */
 app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-/* ─── START ──────────────────────────────────────────────── */
+/* START */
 app.listen(PORT, function () {
   console.log('');
   console.log('  ✅  Tuto Archive running at http://localhost:' + PORT);

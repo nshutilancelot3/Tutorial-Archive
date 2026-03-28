@@ -1,17 +1,5 @@
-/* ═══════════════════════════════════════════════════════════════
-   TUTO ARCHIVE — app.js
 
-   No login or signup. User picks a program + year and goes in.
-   Choice is saved to localStorage so it persists on refresh.
-
-   YouTube API key is read from .env on the server.
-   All searches go through /api/search — key never reaches browser.
-
-   Saved videos are stored in localStorage per program:
-     ta_saved_SE   → saved videos for Software Engineering
-═══════════════════════════════════════════════════════════════ */
-
-/* ─── STATE ──────────────────────────────────────────────── */
+/* STATE */
 var currentProgram      = localStorage.getItem('ta_program') || null;
 var currentYear         = parseInt(localStorage.getItem('ta_year')) || null;
 var selectedProgram     = null;
@@ -27,14 +15,12 @@ var lastSearchResults  = [];
 var searchSortOrder    = 'relevance';
 var searchYearFilter   = 'all';
 
-/* ─── QUICK SEARCH CHIPS PER PROGRAM ─────────────────────── */
+/* QUICK SEARCH CHIPS PER PROGRAM */
 var QUICK = {
   SE: ['React tutorial','Node.js API','Python basics','Git and GitHub','Docker','System design','Data structures','SQL tutorial','Linux terminal','TypeScript'],
 };
 
-/* ═══════════════════════════════════════════════════════════════
-   INIT
-═══════════════════════════════════════════════════════════════ */
+/* INIT */
 document.addEventListener('DOMContentLoaded', function () {
   // Clear stale session if stored program no longer exists
   if (currentProgram && !ALU_PROGRAMS[currentProgram]) {
@@ -70,9 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-/* ═══════════════════════════════════════════════════════════════
-   PROGRAM SELECTOR
-═══════════════════════════════════════════════════════════════ */
+/* PROGRAM SELECTOR */
 function selectProgram(card) {
   document.querySelectorAll('.program-card').forEach(function (c) {
     c.classList.remove('selected');
@@ -104,9 +88,7 @@ function enterApp() {
   showApp();
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   SHOW APP
-═══════════════════════════════════════════════════════════════ */
+/* SHOW APP */
 function showApp() {
   document.getElementById('selectorScreen').classList.add('d-none');
   document.getElementById('appScreen').classList.remove('d-none');
@@ -122,7 +104,7 @@ function showApp() {
   updateSavedCount();
 }
 
-/* ─── Switch program — go back to selector ───────────────── */
+/* Switch program — go back to selector */
 function switchProgram() {
   if (!confirm('Switch your program? Your saved videos will stay.')) return;
 
@@ -144,9 +126,7 @@ function switchProgram() {
   switchTabSilent('courses');
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   TABS
-═══════════════════════════════════════════════════════════════ */
+/* TABS */
 function switchTab(btn, tab) {
   activeTab = tab;
   document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
@@ -172,9 +152,7 @@ function switchTabSilent(tab) {
   if (btn) btn.classList.add('active');
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   LOAD COURSES + FETCH VIDEOS
-═══════════════════════════════════════════════════════════════ */
+/* LOAD COURSES + FETCH VIDEOS */
 function loadCourses() {
   var courses = getCourses(currentProgram, currentYear);
   var grid    = document.getElementById('courseGrid');
@@ -272,10 +250,7 @@ async function fetchVideos(course) {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   YOUTUBE SEARCH — proxied through /api/search on the server
-   API key stays in .env on the server, never reaches the browser
-═══════════════════════════════════════════════════════════════ */
+/* youtube search — proxied through /api/search, key never reaches browser */
 async function apiSearch(query, max, order) {
   max   = max   || 9;
   order = order || 'relevance';
@@ -297,9 +272,7 @@ async function apiSearch(query, max, order) {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   GLOBAL SEARCH (header bar)
-═══════════════════════════════════════════════════════════════ */
+/* GLOBAL SEARCH (header bar) */
 function doGlobalSearch() {
   var q = document.getElementById('globalSearch').value.trim();
   if (!q) return;
@@ -309,9 +282,7 @@ function doGlobalSearch() {
   document.getElementById('globalSearch').value = '';
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   TOPIC SEARCH (Search tab)
-═══════════════════════════════════════════════════════════════ */
+/* TOPIC SEARCH (Search tab) */
 async function doTopicSearch() {
   var q   = document.getElementById('searchTopicInput').value.trim();
   var res = document.getElementById('searchResults');
@@ -395,9 +366,7 @@ function renderSearchResults() {
     '<div class="video-grid">' + filtered.map(videoCardHTML).join('') + '</div>';
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   SAVE / UNSAVE — stored in localStorage per program
-═══════════════════════════════════════════════════════════════ */
+/* SAVE / UNSAVE — stored in localStorage per program */
 function loadSaved(program) {
   try {
     return JSON.parse(localStorage.getItem('ta_saved_' + program) || '[]');
@@ -450,9 +419,7 @@ function updateSavedCount() {
   document.getElementById('savedCount').textContent = savedVideos.length;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   RENDER SAVED VIDEOS
-═══════════════════════════════════════════════════════════════ */
+/* RENDER SAVED VIDEOS */
 function renderSavedVideos() {
   var el  = document.getElementById('savedVideos');
   var btn = document.getElementById('clearSavedBtn');
@@ -476,9 +443,7 @@ function clearAllSaved() {
   renderSavedVideos();
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   QUICK CHIPS
-═══════════════════════════════════════════════════════════════ */
+/* QUICK CHIPS */
 function renderQuickChips() {
   var topics = QUICK[currentProgram] || QUICK.SE;
   document.getElementById('quickChips').innerHTML = topics.map(function (t) {
@@ -491,10 +456,7 @@ function quickSearch(topic) {
   doTopicSearch();
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   OPEN VIDEO — plays directly inside the app
-   Works because the app is served over HTTP (not file://)
-═══════════════════════════════════════════════════════════════ */
+/* open video */
 function openVideo(videoId, title, channel, year) {
   currentModalVid = { id: videoId, title: title, channel: channel, year: year,
     thumb: 'https://img.youtube.com/vi/' + videoId + '/mqdefault.jpg' };
@@ -543,9 +505,7 @@ function showToast(msg, type) {
   new bootstrap.Toast(el, { delay: 3000 }).show();
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   HTML TEMPLATES
-═══════════════════════════════════════════════════════════════ */
+/* HTML TEMPLATES */
 function videoRowHTML(v) {
   var s   = isSaved(v.id);
   var vid = JSON.stringify({ id: v.id, title: v.title, channel: v.channel, year: v.year, thumb: v.thumb })
@@ -601,9 +561,7 @@ function emptyState(icon, msg) {
   return '<div class="empty"><i class="bi ' + icon + '"></i><p>' + msg + '</p></div>';
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   HELPERS
-═══════════════════════════════════════════════════════════════ */
+/* HELPERS */
 function esc(s) {
   return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
