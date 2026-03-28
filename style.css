@@ -353,3 +353,74 @@ h1, h2, h3 { font-family: 'Urbanist', sans-serif; }
   background-size: 200% 100%; animation: shimmer 1.4s infinite;
 }
 @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+
+.search-input {
+  flex: 1;
+  border: 2px solid var(--border); border-radius: 10px;
+  padding: .78rem 1rem;
+  font-family: 'DM Sans', sans-serif; font-size: .92rem;
+  transition: border-color .2s, box-shadow .2s;
+}
+.search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99,102,241,.14);
+  outline: none;
+}
+
+.search-btn {
+  background: var(--accent); color: #fff; border: none; border-radius: 10px;
+  padding: .78rem 1.3rem;
+  font-family: 'Urbanist', sans-serif; font-weight: 700; font-size: .88rem;
+  cursor: pointer; white-space: nowrap; transition: background .2s;
+}
+.search-btn:hover { background: var(--red); }
+
+/* Quick chips */
+.chip {
+  border: 1.5px solid var(--accent); color: var(--accent); background: #fff;
+  border-radius: 99px; padding: .28rem .88rem; font-size: .76rem; font-weight: 600;
+  cursor: pointer; transition: all .14s;
+}
+.chip:hover { background: var(--accent); color: #fff; }
+
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.video-card {
+  background: var(--surface); border-radius: var(--radius);
+  border: 1px solid var(--border); overflow: hidden; cursor: pointer;
+  transition: transform .14s, box-shadow .14s;
+}
+.video-card:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(0,0,0,.1); }
+
+.card-thumb-wrap { position: relative; }
+.card-thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #e5e7eb; display: block; }
+
+.card-play {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.35); opacity: 0; transition: opacity .14s;
+}
+.video-card:hover .card-play { opacity: 1; }
+.card-play i { color: #fff; font-size: 2rem; }
+
+.card-body-inner { padding: .75rem; }
+.ct {
+  font-family: 'Urbanist', sans-serif; font-size: .82rem; font-weight: 700;
+  line-height: 1.35; color: var(--text); margin-bottom: .35rem;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.cm { font-size: .7rem; color: var(--muted); display: flex; justify-content: space-between; align-items: center; }
+
+.card-save-btn {
+  background: none; border: 1.5px solid var(--border); border-radius: 6px;
+  padding: .18rem .55rem; font-size: .68rem; font-weight: 700;
+  cursor: pointer; transition: all .13s; color: var(--muted); flex-shrink: 0;
+}
+.card-save-btn:hover { border-color: var(--accent); color: var(--accent); }
+.card-save-btn.saved { background: #ede9fe; border-color: var(--accent); color: var(--accent); }
