@@ -220,10 +220,8 @@ pm2 restart tuto-archive
 - **Bootstrap 5.3.2** — UI components, grid system, modal — [getbootstrap.com](https://getbootstrap.com)
 - **Bootstrap Icons 1.11.3** — icons throughout the interface — [icons.getbootstrap.com](https://icons.getbootstrap.com)
 - **Express.js** by the OpenJS Foundation — HTTP server and API routing — [expressjs.com](https://expressjs.com)
-- **dotenv** by motdotla — environment variable loading — [github.com/motdotla/dotenv](https://github.com/motdotla/dotenv)
 - **Google Fonts** — Urbanist and JetBrains Mono — [fonts.google.com](https://fonts.google.com)
 - **HAProxy** — load balancer on Lb01 — [haproxy.org](https://www.haproxy.org)
-- **PM2** by Unitech — process manager, keeps Node.js alive across reboots — [pm2.keymetrics.io](https://pm2.keymetrics.io)
 
 ---
 
