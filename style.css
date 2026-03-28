@@ -484,3 +484,24 @@ h1, h2, h3 { font-family: 'Urbanist', sans-serif; }
   border-radius: 4px; padding: .07rem .32rem;
   font-size: .6rem; font-weight: 800;
 }
+
+/* offline banner */
+.offline-banner {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
+  background: #dc2626; color: #fff; text-align: center;
+  font-size: .82rem; font-weight: 700; padding: .45rem;
+  display: none;
+}
+.offline-banner.show { display: block; }
+
+@media (max-width: 768px) {
+  .header-search { width: 150px; }
+  .course-grid   { grid-template-columns: 1fr; }
+  .video-grid    { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .video-grid    { grid-template-columns: 1fr; }
+  .header-search { display: none; }
+}
+
+
