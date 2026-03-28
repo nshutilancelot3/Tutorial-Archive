@@ -424,3 +424,63 @@ h1, h2, h3 { font-family: 'Urbanist', sans-serif; }
 }
 .card-save-btn:hover { border-color: var(--accent); color: var(--accent); }
 .card-save-btn.saved { background: #ede9fe; border-color: var(--accent); color: var(--accent); }
+
+
+.modal-content { border-radius: 16px; border: none; box-shadow: 0 24px 60px rgba(0,0,0,.3); }
+
+.modal-video-title {
+  font-family: 'Urbanist', sans-serif; font-size: .85rem; font-weight: 700;
+  line-height: 1.4; max-width: 88%; margin: 0;
+}
+
+.modal-save-btn {
+  background: var(--accent); color: #fff; border: none; border-radius: 8px;
+  padding: .35rem .85rem; font-size: .75rem; font-weight: 700; cursor: pointer;
+  transition: background .2s; display: flex; align-items: center;
+}
+.modal-save-btn:hover  { background: var(--red); }
+.modal-save-btn.saved  { background: #16a34a; }
+
+.modal-yt-btn {
+  background: #ff0000; color: #fff; border-radius: 8px;
+  padding: .35rem .85rem; font-size: .75rem; font-weight: 700;
+  text-decoration: none; display: flex; align-items: center; transition: background .2s;
+}
+.modal-yt-btn:hover { background: #cc0000; color: #fff; }
+
+
+.empty {
+  text-align: center; padding: 2.5rem 1rem; color: var(--muted);
+}
+.empty i { font-size: 2.4rem; opacity: .22; display: block; margin-bottom: .7rem; }
+.empty p { font-size: .86rem; line-height: 1.65; }
+
+.err-box {
+  background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px;
+  padding: 1rem 1.2rem; color: var(--red); font-size: .84rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+
+
+.sort-select {
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: .3rem .65rem; font-size: .78rem; font-weight: 600;
+  cursor: pointer; outline: none;
+}
+.sort-select:focus { border-color: var(--accent); }
+
+.year-chip {
+  background: var(--surface); color: var(--muted);
+  border: 1px solid var(--border); border-radius: 20px;
+  padding: .2rem .65rem; font-size: .72rem; font-weight: 700;
+  cursor: pointer; transition: all .15s;
+}
+.year-chip:hover       { border-color: var(--accent); color: var(--accent); }
+.year-chip.active      { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.yt-badge {
+  background: #ff0000; color: #fff;
+  border-radius: 4px; padding: .07rem .32rem;
+  font-size: .6rem; font-weight: 800;
+}
