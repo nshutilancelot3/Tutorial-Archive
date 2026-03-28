@@ -218,7 +218,7 @@ pm2 restart tuto-archive
 
 - **YouTube Data API v3** by Google — video search and metadata — [developers.google.com/youtube/v3](https://developers.google.com/youtube/v3)
 - **Bootstrap 5.3.2** — UI components, grid system, modal — [getbootstrap.com](https://getbootstrap.com)
-- **Bootstrap Icons 1.11.3** — icons throughout the interface — [icons.getbootstrap.com](https://icons.getbootstrap.com)
+
 - **Express.js** by the OpenJS Foundation — HTTP server and API routing — [expressjs.com](https://expressjs.com)
 - **Google Fonts** — Urbanist and JetBrains Mono — [fonts.google.com](https://fonts.google.com)
 - **HAProxy** — load balancer on Lb01 — [haproxy.org](https://www.haproxy.org)
