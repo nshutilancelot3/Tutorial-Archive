@@ -223,6 +223,7 @@ pm2 restart tuto-archive
 - **Express.js** by the OpenJS Foundation — HTTP server and API routing — [expressjs.com](https://expressjs.com)
 - **Google Fonts** — Urbanist and JetBrains Mono — [fonts.google.com](https://fonts.google.com)
 - **HAProxy** — load balancer on Lb01 — [haproxy.org](https://www.haproxy.org)
+- **Let's Encrypt** — free SSL/TLS certificate for HTTPS on the live domain — [letsencrypt.org](https://letsencrypt.org)
 
 ---
 
