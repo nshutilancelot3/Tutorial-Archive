@@ -3,12 +3,13 @@
 > A YouTube study-resource finder built exclusively for **ALU Software Engineering students** — browse curated course videos by year, search any topic, filter results, and bookmark tutorials for later.
 
 **Live:** [https://tutoarchive.lancewreal.tech](https://tutoarchive.lancewreal.tech)
+**Demo:** [https://youtu.be/ceOe0AAAhK0](https://youtu.be/ceOe0AAAhK0)
 
 ---
 
 ## What it does
 
-You pick your year of study (Year 1–4) on the landing screen and the app loads all your enrolled ALU Software Engineering courses. Each course card is an accordion — click it and 6 relevant YouTube tutorials load on demand. There's also a free-text search tab with quick-chip shortcuts for common SE topics, sort controls, and year filters.
+You pick your year of study (Year 1–3) on the landing screen and the app loads all your enrolled ALU Software Engineering courses. Each course card is an accordion — click it and 6 relevant YouTube tutorials load on demand. There's also a free-text search tab with quick-chip shortcuts for common SE topics, sort controls, and year filters.
 
 Everything runs through a Node.js/Express backend. The YouTube API key never touches the browser — the server proxies all requests and keeps the key in a `.env` file. Bookmarked videos persist in `localStorage` across sessions with no login required.
 
@@ -66,7 +67,7 @@ Open [http://localhost:3000](http://localhost:3000). Pick your year and start ex
 
 ## Features
 
-- Year selector screen — pick Year 1, 2, 3, or 4; choice is saved to `localStorage` and restored on every visit
+- Year selector screen — pick Year 1, 2, or 3; choice is saved to `localStorage` and restored on every visit
 - Accordion course cards — videos fetch lazily only when you open a card, preserving API quota
 - Global search bar in the header, accessible from any tab
 - Topic search tab with 10 quick-chip shortcuts for common SE topics
